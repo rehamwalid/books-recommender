@@ -4,8 +4,10 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Http;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
@@ -42,4 +44,28 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function books(): BelongsToMany
+    {
+       return $this->belongsToMany(Book::class,'book_users')
+           ->withPivot(['start_page','end_page']);
+    }
+
+    /**
+     * @throws \Exception
+     */
+    public function SendSms($book)
+    {
+        $message = " Thanks for reading ".$book->name;
+        $data=[
+            'to' => $this->mobile,
+            'body' => $message
+        ];
+        try{
+            Http::post(env('SMS_URL'), $data);
+        }catch(\Exception $e)
+        {
+            throw new \Exception($e->getMessage());
+        }
+    }
 }
