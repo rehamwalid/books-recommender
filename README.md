@@ -38,7 +38,7 @@ php artisan serve
 ## Tests
 - Run Tests
 ```bash
-php artisan tests
+php artisan test
 ``` 
 
 ## API Docs
