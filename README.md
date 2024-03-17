@@ -19,6 +19,11 @@ php artisan db:seed
 ```
 SMS_URL=
 ```
+### Run Project 
+- Run
+```bash
+php artisan serve
+```
 
 
 
@@ -33,6 +38,10 @@ SMS_URL=
 ```bash
 php artisan tests
 ``` 
+
+## API Docs
+
+https://documenter.getpostman.com/view/33671069/2sA2xnyAUZ
 
  
 
