@@ -18,7 +18,7 @@ class BookController extends Controller
         $books = QueryBuilder::for(Book::class)
             ->defaultSort('-num_read_pages')
             ->get();
-        return response()->json(BookResource::collection($books));
+        return response()->json(BookResource::collection($books->take(5)));
     }
 
     /**
