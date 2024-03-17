@@ -5,6 +5,8 @@
 ```bash
 composer install
 ```
+-  Add `.env` file in the project root directory (use data in `env.example` and update the database connection based in your enviroment)
+
 - Migrate Tables 
 ```bash
 php artisan migrate
