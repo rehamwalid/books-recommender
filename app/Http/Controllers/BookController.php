@@ -26,12 +26,20 @@ class BookController extends Controller
      */
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
-            'user_id' => 'required|exists:users,id',
-            'book_id' => 'required|exists:books,id',
-            'start_page' => 'required|integer',
-            'end_page'  =>  'required|integer'
-        ]);
+        try{
+            $validatedData = $request->validate([
+                'user_id' => 'required|exists:users,id',
+                'book_id' => 'required|exists:books,id',
+                'start_page' => 'required|integer',
+                'end_page'  =>  'required|integer'
+            ]);
+        }catch (\Exception $e){
+            return response()->json([
+                'message' => 'Validation failed.',
+                'errors' => $e->validator->errors()->toArray()
+            ], 422);
+        }
+
 
         $book = Book::findOrFail($validatedData['book_id']);
         $user = User::findOrFail($validatedData['user_id']);
